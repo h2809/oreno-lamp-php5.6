@@ -10,7 +10,8 @@ RUN apt-get update \
 RUN a2enmod rewrite
 
 RUN ln -s /etc/apache2/mods-available/vhost_alias.load /etc/apache2/mods-enabled
-RUN echo ServerName $HOSTNAME > /etc/apache2/conf-available/fqdn.conf && a2enconf fqdn
+#RUN echo ServerName $HOSTNAME > /etc/apache2/conf-available/fqdn.conf && a2enconf fqdn
+RUN echo ServerName localhost > /etc/apache2/conf-available/fqdn.conf && a2enconf fqdn
 RUN a2enmod headers
 RUN a2enmod include
 
@@ -20,7 +21,6 @@ RUN apt-get update && apt-get install -y \
         libjpeg62-turbo-dev \
         libpng-dev
 RUN docker-php-ext-install gd
-
 
 COPY ./base.conf /etc/apache2/sites-available/base.conf
 RUN a2ensite base.conf
